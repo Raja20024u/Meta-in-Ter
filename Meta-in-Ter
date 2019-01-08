@@ -1,0 +1,75 @@
+lg='\e[1;32m'
+ye='\e[1;33m'
+blue='\e[1;34m'
+re='\e[1;31m'
+clear
+echo " "
+echo -e $lg " +-------------------------------------------+"
+echo -e "  |    ${blue}-----=welcome to Meta-in-Ter=-----   ${lg}       |"
+echo -e $lg	" +-------------------------------------------+"
+which figlet > /dev/null 2>&1
+if [ "$?" -eq "0" ]
+ then
+    echo " "
+    echo -e $ye "[${re} ✔ ${ye}]...............................${lg}[ Figlet ]"
+    echo " "
+    sleep 2
+ else
+    echo -e $blue " [ ! ] Installing Figlet........."
+    pkg install figlet -y > /dev/null 2>&1
+    echo " "
+
+fi
+which msfconsole > /dev/null 2>&1
+if [ "$?" -eq "0" ]
+ then
+    echo -e $ye "[ ${re}✔ ${ye}]............................${lg}[ Metasploit ]"
+    which msfconsole > /dev/null 2>&1
+    echo ""
+    sleep 2
+ else 
+   echo ""
+   apt update apt -y 
+   upgrade apt -y 
+   install git ruby ruby-dev make clang autoconf curl wget ncurses-utils libsqlite-dev postgresql postgresql-dev libpcap-dev libffi-dev libxslt-dev pkg-config 
+   git clone -b termux https://github.com/timwr/metasploit-framework.git 
+   cd metasploit-framework
+   gem install bundler
+   gem install nokogiri -- --using-system-libraries bundle install --gemfile Gemfile.local
+   ./msfconsole
+   fi
+echo -e $blue " "
+echo -n " Press enter to continue............."
+read mm
+clear
+echo ""
+echo ""
+test="/sdcard/ghost"
+dol="/sdcard/inject"
+if [ ! -d "$test" ]
+ then
+    echo -e $ye "  [ ${re}-${ye} ]${re} Creating a new Directory "
+    mkdir /sdcard/Raja
+    echo " "
+    sleep 2
+    echo -e $ye "  [${lg} ✔ ${ye}] ${blue}Directory Created............"
+ else
+    echo -e $ye "  [ ${lg}✔${ye} ] ${lg}Directory Already exist"
+    echo " "
+fi
+if [ ! -d "$dol" ]
+ then
+   echo " "
+   echo -e $ye "  [${re} - ${ye}]${re} Creating a new Directory "
+   mkdir /sdcard/inject
+   echo " "
+   sleep 2
+   echo -e $ye "  [${lg} ✔ ${ye}] ${blue}Directory Created............"
+
+ else
+   echo -e $ye "  [${lg} ✔ ${ye}] ${lg}Directory Aleady exist"
+   echo " "
+fi
+echo " " 
+echo -e $ye " Setup completed.................."
+echo "." | lolcat
